@@ -15,15 +15,16 @@ class CreateSaleRefundsTable extends Migration
     {
         Schema::create('sale_refunds', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('sale_id')->unsigned();
-            $table->integer('payment_id')->unsigned();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('sale_id');
+            $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('user_id');
             $table->text('description')->nullable();
             $table->float('amount')->default(0.00);
             $table->timestamps();
 
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -34,6 +35,6 @@ class CreateSaleRefundsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('refunds');
+        Schema::dropIfExists('sale_refunds');
     }
 }

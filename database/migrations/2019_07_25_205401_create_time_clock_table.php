@@ -15,10 +15,13 @@ class CreateTimeClockTable extends Migration
     {
         Schema::create('time_clock', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->boolean('is_active')->default(1);
             $table->timestamp('time_in_at')->useCurrent();
             $table->timestamp('time_out_at')->nullable();
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

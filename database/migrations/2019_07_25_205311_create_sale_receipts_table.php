@@ -15,7 +15,7 @@ class CreateSaleReceiptsTable extends Migration
     {
         Schema::create('sale_receipts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('sale_id')->unsigned();
+            $table->unsignedBigInteger('sale_id');
             $table->json('content');
             $table->float('amount')->default(0.00);
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateSaleReceiptsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('receipt');
+        Schema::dropIfExists('sale_receipts');
     }
 }

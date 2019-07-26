@@ -15,9 +15,11 @@ class CreateSyncTable extends Migration
     {
         Schema::create('sync', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->boolean('is_successful')->default(0);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

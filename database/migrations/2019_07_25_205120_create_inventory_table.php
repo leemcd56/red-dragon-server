@@ -15,12 +15,15 @@ class CreateInventoryTable extends Migration
     {
         Schema::create('inventory', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('vendor_id');
+            $table->unsignedBigInteger('account_id');
+            $table->unsignedBigInteger('inventory_type_id');
             $table->string('product');
-            $table->string('product_type_id');
             $table->integer('quantity')->default(0);
             $table->float('value')->default(0.00);
             $table->timestamps();
+
+            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('inventory_type_id')->references('id')->on('inventory_types');
         });
     }
 

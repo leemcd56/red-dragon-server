@@ -15,12 +15,15 @@ class CreateAuditTimesheetsTable extends Migration
     {
         Schema::create('audit_timesheets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('audit_user_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('audit_user_id');
+            $table->unsignedBigInteger('user_id');
             $table->float('total_hours')->default(0.00);
             $table->timestamp('time_in_at');
             $table->timestamp('time_out_at');
             $table->timestamps();
+
+            $table->foreign('audit_user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +34,6 @@ class CreateAuditTimesheetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('timesheet');
+        Schema::dropIfExists('audit_timesheets');
     }
 }

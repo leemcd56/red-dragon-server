@@ -15,11 +15,13 @@ class CreateAccountsPayableTable extends Migration
     {
         Schema::create('accounts_payable', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('accounts_id');
+            $table->unsignedBigInteger('account_id');
             $table->text('description');
             $table->float('amount')->default(0.00);
             $table->timestamp('due_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 

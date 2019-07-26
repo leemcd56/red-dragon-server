@@ -15,7 +15,7 @@ class CreateAccountsProfileTable extends Migration
     {
         Schema::create('accounts_profile', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('accounts_id')->unsigned();
+            $table->unsignedBigInteger('accounts_id');
             $table->string('vendor_name');
             $table->string('personal_identifier');
             $table->string('phone_number_1');

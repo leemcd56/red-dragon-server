@@ -15,13 +15,13 @@ class CreateInvoicePaymentsTable extends Migration
     {
         Schema::create('invoice_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('invoice_id')->unsigned();
+            $table->unsignedBigInteger('invoice_id');
             $table->integer('user_id');
             $table->float('amount')->default(0.00);
             $table->timestamp('paid_at')->useCurrent();
             $table->timestamps();
 
-            $table->foreign('invoices_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateInvoicePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment');
+        Schema::dropIfExists('invoice_payments');
     }
 }

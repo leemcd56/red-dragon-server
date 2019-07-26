@@ -15,7 +15,7 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('accounts_id');
+            $table->unsignedBigInteger('accounts_id');
             $table->text('description')->nullable();
             $table->float('amount')->default(0.00);
             $table->timestamp('invoiced_at')->useCurrent();
@@ -33,6 +33,6 @@ class CreateInvoicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoice');
+        Schema::dropIfExists('invoices');
     }
 }

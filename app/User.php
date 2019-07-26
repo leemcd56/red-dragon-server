@@ -2,38 +2,27 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    /**
+     * Determine if user is currently on the clock.
+     *
+     * @return boolean
+     */
+    public function currentSession()
+    {
+        return $this->timeCards->where('is_active', 1)->get();
+    }
 
     /**
-     * The attributes that are mass assignable.
+     * Returns user time cards.
      *
-     * @var array
+     * @return App\TimeClock
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function timeCards()
+    {
+        return $this->hasMany('App\TimeClock');
+    }
 }

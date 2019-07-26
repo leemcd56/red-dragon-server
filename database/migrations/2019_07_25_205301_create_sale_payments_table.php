@@ -15,7 +15,7 @@ class CreateSalePaymentsTable extends Migration
     {
         Schema::create('sale_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('sale_id')->unsigned();
+            $table->unsignedBigInteger('sale_id');
             $table->enum('payment_method', ['CASH', 'CARD', 'OTHER'])->default('CASH');
             $table->float('amount')->default(0.00);
             $table->string('processor_id')->nullable();
@@ -34,6 +34,6 @@ class CreateSalePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('sale_payments');
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Account extends Model
+class TimeClock extends Model
 {
     /**
      * The attributes that should be cast to native types.
@@ -12,6 +12,8 @@ class Account extends Model
      * @var array
      */
     protected $casts = [
-        'is_vendor' => 'boolean',
+        'is_active' => 'boolean',
+        'time_in_at' => 'datetime',
+        'time_out_at' => 'datetime',
     ];
 }
